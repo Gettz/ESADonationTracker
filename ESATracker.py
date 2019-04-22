@@ -62,6 +62,8 @@ def agg(eventid):  # Main function, holds all logic for the tracker
                     time.sleep(3)
                 time.sleep(2)
         except KeyboardInterrupt:
+            print("Restarting the tracker\n\n")
+            time.sleep(2)
             main()
     else:
         query = input("No event found, or server is currently down.\nPlease re-enter event ID to try again: ")
