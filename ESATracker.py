@@ -2,7 +2,7 @@ import requests
 import time
 from decimal import Decimal
 
-version = '2.5'
+version = '2.6'
 
 
 def main():  # On run function, header and opening query
@@ -11,7 +11,7 @@ def main():  # On run function, header and opening query
     validity(event)
 
         
-def validity(event)  # Checks to see if input was in a valid format
+def validity(event):  # Checks to see if input was in a valid format
     try:
         if int(event) and len(event) == 2:
             agg(event)
