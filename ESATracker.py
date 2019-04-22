@@ -66,7 +66,7 @@ def agg(eventid):  # Main function, holds all logic for the tracker
             time.sleep(2)
             main()
     else:
-        query = input("No event found, or server is currently down.\nHit enter to try again, or input a " +
+        query = input("No event found, or server is currently down.\n\nHit enter to try again, or input a " +
         "different event ID: ")
         if query == '':
             agg(eventid)
