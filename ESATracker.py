@@ -2,7 +2,7 @@ import requests
 import time
 from decimal import Decimal
 
-version = '2.6'
+version = '2.7'
 
 
 def main():  # On run function, header and opening query
@@ -66,7 +66,11 @@ def agg(eventid):  # Main function, holds all logic for the tracker
             time.sleep(2)
             main()
     else:
-        query = input("No event found, or server is currently down.\nPlease re-enter event ID to try again: ")
-        validity(query)
+        query = input("No event found, or server is currently down.\nHit enter to try again, or input a " +
+        "different event ID: ")
+        if query == '':
+            agg(eventid)
+        else:
+            validity(query)
 
 main()
