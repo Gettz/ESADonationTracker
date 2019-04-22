@@ -2,10 +2,24 @@ import requests
 import time
 from decimal import Decimal
 
-# Version 2.3
+version = '2.4'
 
 
-def main():  # Main function, holds all logic for the tracker
+def main():
+    print("ESA Donation Tracker Version {0}".format(version) + "\n=================================")
+    event = input("What is your Event ID (2 digit number): ")
+    try:
+        if int(event) and len(event) == 2:
+            agg(event)
+        else:
+            print("Incorrect format!\nRestarting tracker.\n\n")
+            main()
+    except ValueError:
+        print("Incorrect format!\nRestarting tracker.\n\n")
+        main()
+
+
+def agg(eventid):  # Main function, holds all logic for the tracker
     total = Decimal(0.00)  # aggregate donation total pulled from the ESA site.
     currency = Decimal(0.00)  # the donation total but correctly formatted to 2 decimal places.
     output = Decimal(0.00)  # the amount currently saved in the output.txt file, useful for update checks.
@@ -13,10 +27,11 @@ def main():  # Main function, holds all logic for the tracker
     h = {"User-Agent": "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US;"
          "rv:1.9.2.8) Gecko/20100722 Firefox/3.6.8 GTB7.1 (.NET CLR 3.5.30729)",
          "Referer": "https://donations.esamarathon.com"}
-    eventid = input("What is your Event ID (2 digit number): ")
+
     url = requests.get("https://donations.esamarathon.com/{0}?json".format(eventid), headers=h, timeout=5)
     if url.status_code == 200:
-        print("Valid event found. \nNow parsing donation totals to output.txt \n \nPress Ctrl + C to restart script\n")
+        print("Valid event found. \nNow parsing donation totals to output.txt \n" +
+              " \nPress Ctrl + C to restart script\n=================================\n")
         try:
             while True:
                 r = requests.get("https://donations.esamarathon.com/{0}?json".format(eventid), headers=h, timeout=5)
