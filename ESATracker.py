@@ -2,6 +2,8 @@ import requests
 import time
 from decimal import Decimal
 
+# Version 2.3
+
 
 def main():  # Main function, holds all logic for the tracker
     total = Decimal(0.00)  # aggregate donation total pulled from the ESA site.
@@ -17,7 +19,7 @@ def main():  # Main function, holds all logic for the tracker
         print("Valid event found. \nNow parsing donation totals to output.txt \n \nPress Ctrl + C to restart script\n")
         try:
             while True:
-                r = requests.get("https://donations.esamarathon.com/13?json", headers=h, timeout=5)
+                r = requests.get("https://donations.esamarathon.com/{0}?json".format(eventid), headers=h, timeout=5)
                 if r.status_code == 200:
                     data = r.json()
                     if(Decimal(data['agg']['amount'])) > total:
