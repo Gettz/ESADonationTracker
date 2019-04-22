@@ -2,23 +2,29 @@ import requests
 import time
 from decimal import Decimal
 
-version = '2.4'
+version = '2.5'
 
 
 def main():
     print("ESA Donation Tracker Version {0}".format(version) + "\n=================================")
     event = input("What is your Event ID (2 digit number): ")
+    validity(event)
+
+        
+def validity(event)
     try:
         if int(event) and len(event) == 2:
             agg(event)
         else:
             print("Incorrect format!\nRestarting tracker.\n\n")
+            time.sleep(2)
             main()
     except ValueError:
         print("Incorrect format!\nRestarting tracker.\n\n")
+        time.sleep(2)
         main()
 
-
+        
 def agg(eventid):  # Main function, holds all logic for the tracker
     total = Decimal(0.00)  # aggregate donation total pulled from the ESA site.
     currency = Decimal(0.00)  # the donation total but correctly formatted to 2 decimal places.
@@ -56,6 +62,8 @@ def agg(eventid):  # Main function, holds all logic for the tracker
                 time.sleep(5)
         except KeyboardInterrupt:
             main()
-
+    else:
+        query = input("No event found, or server is currently down.\nPlease re-enter event ID to try again: ")
+        validity(query)
 
 main()
