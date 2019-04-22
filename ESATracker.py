@@ -59,7 +59,8 @@ def agg(eventid):  # Main function, holds all logic for the tracker
                             output = currency
                 else:
                     print("404, trying again in 5 seconds")
-                time.sleep(5)
+                    time.sleep(3)
+                time.sleep(2)
         except KeyboardInterrupt:
             main()
     else:
