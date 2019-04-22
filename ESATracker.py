@@ -6,11 +6,12 @@ version = '2.7'
 
 
 def main():  # On run function, header and opening query
-    print("ESA Donation Tracker Version {0}".format(version) + "\n=================================")
+    print("====================================\n| ESA Donation Tracker Version {0}".format(version) +
+          " |\n====================================\n")
     event = input("What is your Event ID (2 digit number): ")
     validity(event)
 
-        
+
 def validity(event):  # Checks to see if input was in a valid format
     try:
         if int(event) and len(event) == 2:
@@ -24,14 +25,14 @@ def validity(event):  # Checks to see if input was in a valid format
         time.sleep(2)
         main()
 
-        
+
 def agg(eventid):  # Main function, holds all logic for the tracker
     total = Decimal(0.00)  # Aggregate donation total pulled from the ESA site.
     currency = Decimal(0.00)  # The donation total but correctly formatted to 2 decimal places.
     output = Decimal(0.00)  # The amount currently saved in the output.txt file, useful for update checks.
     first = True  # Bool to see if first run of script
     h = {"User-Agent": "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US;"
-         "rv:1.9.2.8) Gecko/20100722 Firefox/3.6.8 GTB7.1 (.NET CLR 3.5.30729)",
+                       "rv:1.9.2.8) Gecko/20100722 Firefox/3.6.8 GTB7.1 (.NET CLR 3.5.30729)",
          "Referer": "https://donations.esamarathon.com"}
 
     url = requests.get("https://donations.esamarathon.com/{0}?json".format(eventid), headers=h, timeout=5)
@@ -43,7 +44,7 @@ def agg(eventid):  # Main function, holds all logic for the tracker
                 r = requests.get("https://donations.esamarathon.com/{0}?json".format(eventid), headers=h, timeout=5)
                 if r.status_code == 200:
                     data = r.json()
-                    if(Decimal(data['agg']['amount'])) > total:
+                    if (Decimal(data['agg']['amount'])) > total:
                         total = (Decimal(data['agg']['amount']))
                         x = total
                         currency = round(x, 2)
@@ -67,10 +68,11 @@ def agg(eventid):  # Main function, holds all logic for the tracker
             main()
     else:
         query = input("No event found, or server is currently down.\n\nHit enter to try again, or input a " +
-        "different event ID: ")
+                      "different event ID: ")
         if query == '':
             agg(eventid)
         else:
             validity(query)
+
 
 main()
