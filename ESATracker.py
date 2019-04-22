@@ -37,8 +37,8 @@ def agg(eventid):  # Main function, holds all logic for the tracker
 
     url = requests.get("https://donations.esamarathon.com/{0}?json".format(eventid), headers=h, timeout=5)
     if url.status_code == 200:
-        print("Valid event found. \nNow parsing donation totals to output.txt \n" +
-              " \nPress Ctrl + C to restart script\n=================================\n")
+        print("\nValid event found. \nNow parsing donation totals to output.txt \n" +
+              " \nPress Ctrl + C to restart script\n====================================\n")
         try:
             while True:
                 r = requests.get("https://donations.esamarathon.com/{0}?json".format(eventid), headers=h, timeout=5)
