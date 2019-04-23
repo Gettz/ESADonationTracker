@@ -52,8 +52,8 @@ def agg(eventid):  # Main function, holds all logic for the tracker
                         print("Current donation total: ${0}".format(str(currency)))
                         first = False
                         output = currency
-                    elif currency > output:
-                        print("New donation of: $" + str(currency - output))
+                    elif currency != output:
+                        print("New donation of: ${0}".format(str(currency - output)))
                         with open('output.txt', 'w') as text_file:
                             text_file.write('${0}'.format(str(currency)))
                             text_file.close()
