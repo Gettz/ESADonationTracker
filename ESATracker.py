@@ -2,7 +2,7 @@ import requests
 import time
 from decimal import Decimal
 
-version = '2.7'
+version = '2.8'
 
 
 def main():  # On run function, header and opening query
@@ -52,16 +52,16 @@ def agg(eventid):  # Main function, holds all logic for the tracker
                         print("Current donation total: ${0}".format(str(currency)))
                         first = False
                         output = currency
-                    elif currency != output:
-                        print("New donation of: ${0}".format(str(currency - output)))
+                    if currency != output:
+                        print("${0}".format(str(currency - output)) + " added to total")
                         with open('output.txt', 'w') as text_file:
                             text_file.write('${0}'.format(str(currency)))
                             text_file.close()
                             output = currency
                 else:
                     print("404, trying again in 5 seconds")
-                    time.sleep(3)
-                time.sleep(2)
+                    time.sleep(4)
+                time.sleep(1)
         except KeyboardInterrupt:
             print("Restarting the tracker\n\n")
             time.sleep(2)
